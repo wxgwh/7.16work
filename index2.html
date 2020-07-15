@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,ul,li{
+            padding:0;margin:0;list-style:none;
+        }
+        .box{
+            margin: 0 auto;
+            width: 1550px;
+            height: 500px;
+            overflow: hidden;
+            position: relative;
+        }
+        .box .one{
+            width: 600%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            left: -0px;
+        }
+        .con{
+            width: 360px;
+            height: 5px;
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translate(-50%, 0);
+        }
+        .con ul li a{
+            float: left;
+            width: 50px;
+            height: 5px;
+            margin: 0 5px;
+            text-decoration:none;
+            background: white;
+            border-radius: 10px;
+            opacity: 0.8;
+        }
+        img{
+            width: 1550px;
+            height: 500px;
+            float: left;
+        }
+    </style>
+    <!-- <script src="./aniMath.js"></script> -->
+</head>
+<body>
+    <div class="box">
+        <ul class="one">
+            <li>
+                <img src="https://ae01.alicdn.com/kf/H585e792e8bce453386a7394c0578e7cbD.jpg" alt="">
+            </li>
+            <li>
+                <img src="https://ae01.alicdn.com/kf/H2f05c049131d49cea1ab99c6c0a795e9h.jpg" alt="">
+            </li>
+            <li>
+                <img src="https://ae01.alicdn.com/kf/H7688faee2ab247a0a2a9ed3a17b52c0cH.jpg" alt="">
+            </li>
+            <li>
+                <img src="https://ae01.alicdn.com/kf/H09b3db1077784ee18f63d0171310294cS.jpg" alt="">
+            </li>
+            <li>
+                <img src="https://ae01.alicdn.com/kf/H99d30c4992bd4317bc0c4b538301b618M.jpg" alt="">
+            </li>
+            <li>
+                <img src="https://ae01.alicdn.com/kf/H69e6e0ab0bd648b9b20a9d9d49cdc17fr.jpg" alt="">
+            </li>
+        </ul>
+        <div class="con">
+            <ul>
+                <li><a href="#" style="background: #999;"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+                <li><a href="#"></a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <script>
+        var lists=document.querySelector(".one");
+        var links=document.querySelectorAll(".con ul li a");
+        console.log(links)
+        var n=0,num=1;
+        var fun=function(){
+            if(num>links.length-1){
+                num=0;
+            }
+            for(var j=0;j<links.length;j++){
+                links[j].style.background="white";
+            }
+            links[num].style.background="#999";
+            num++;
+            for( let i=0;i<links.length;i++){
+            //links[i].index=i;//使用let  或者  闭包都可以解决
+                links[i].onclick=function(){//onmouseover鼠标悬停
+                //alert(i)
+                    num=i+1;
+                    for(var j=0;j<lists.length;j++){
+                        links[j].style.background="white";
+                    }
+                    n=-1550*i;
+                    links[i].style.background="#999";
+                    animate(lists,"left",n,500);                   
+                }
+            }
+            n=n-1550;
+            animate(lists,"left",n,500);
+            if(n==-7750){n=1550;}
+        }
+        function animate(obj,attr,end,duration){
+            var start=parseInt(getComputedStyle(obj,null)[attr]);
+            var change=end-start;
+
+            var time=0;
+            var t=setInterval(() => {
+                time+=50;
+                obj.style[attr]=start+change*time/duration+"px";
+                // obj.style[attr]=fn(time,start,change,duration)+"px";
+                if(time>=duration){
+                    obj.style[attr]=end;
+                    clearInterval(t)
+                }
+            }, 50);
+        }
+        var t1=setInterval(fun,4000);
+    </script>
+</body>
+</html>
